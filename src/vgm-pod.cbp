@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="vgm-pod" />
+		<Option pch_mode="2" />
+		<Option compiler="armelfgcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/vgm-pod" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Debug/" />
+				<Option type="5" />
+				<Option compiler="armelfgcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-Wl,-Map=obj/Debug/vgm-pod.map" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/vgm-pod" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Release/" />
+				<Option type="5" />
+				<Option compiler="armelfgcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-Wl,-Map=obj/Release/vgm-pod.map" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-mthumb -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -ffunction-sections -fdata-sections" />
+			<Add option="-DARM_MATH_CM4" />
+			<Add option="-D__FPU_PRESENT" />
+			<Add option="-DPART_LM4F120H5QR" />
+			<Add option="-DTARGET_IS_BLIZZARD_RA1" />
+			<Add directory="/home/jalon/src/stellaris/stellarisware" />
+			<Add directory="/home/jalon/src/stellaris/cmsis-src/CMSIS/Include" />
+		</Compiler>
+		<Linker>
+			<Add option="-Wl,--static,--gc-sections,-Tlm4f120.ld -mcpu=cortex-m4 -mthumb" />
+			<Add library="driver-cm4f" />
+			<Add library="m" />
+			<Add library="dsplib_lm4f" />
+			<Add directory="/home/jalon/src/stellaris/stellarisware/driverlib/gcc-cm4f" />
+			<Add directory="/home/jalon/src/stellaris/cmsis-src/CMSIS/Lib" />
+		</Linker>
+		<Unit filename="fatfs/diskio.h" />
+		<Unit filename="fatfs/ff.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="fatfs/ff.h" />
+		<Unit filename="fatfs/ffconf.h" />
+		<Unit filename="fatfs/integer.h" />
+		<Unit filename="fatfs/mmc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lm4f120.ld" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="rgb_led.h" />
+		<Unit filename="startup_gcc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="syscalls.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="types.h" />
+		<Unit filename="uart.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="uart.h" />
+		<Unit filename="ym2612.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ym2612.h" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+			<lib_finder disable_auto="1" />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
