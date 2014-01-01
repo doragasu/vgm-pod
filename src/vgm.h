@@ -4,6 +4,21 @@
  *         and sends commands to YM2612 and SN76489 chips.
  * \author Jesús Alonso (doragasu)
  ****************************************************************************/
+/* This file is part of vmg-pod source package.
+ *
+ * vgm-pod is free software: you can redistribute
+ * it and/or modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation, either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * Some open source application is distributed in the hope that it will
+ * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with vgm-pod.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #ifndef _VGM_H_
 #define _VGM_H_
