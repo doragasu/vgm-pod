@@ -79,6 +79,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="uart.h" />
+		<Unit filename="vgm.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="vgm.h" />
 		<Unit filename="ym2612.c">
 			<Option compilerVar="CC" />
 		</Unit>
