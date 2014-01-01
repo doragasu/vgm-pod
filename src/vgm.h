@@ -35,18 +35,31 @@
 
 #define VGM_MAX_HEADLEN     192
 
+#define VGM_MIN_HEADLEN     64
+
 /// Function completed without error
 #define VGM_OK               0
+/// Function failed
+#define VGM_ERROR           -1
 /// An error opening/reading a file occurred
-#define VGM_FILE_ERR        -1
+#define VGM_FILE_ERR        -2
 /// The VGM header was not correct
-#define VGM_HEAD_ERR        -2
+#define VGM_HEAD_ERR        -3
 /// The VGM stream was not correct
-#define VGM_STREAM_ERR      -3
+#define VGM_STREAM_ERR      -4
+/// Unsupported VGM file
+#define VGM_NOT_SUPPORTED   -5
 /// Reached end of VGM stream
-#define VGM_EOF             -4
+#define VGM_EOF             -6
 /// Reached start of VGM stream
-#define VGM_SOF             -5
+#define VGM_SOF             -7
+/// Cannot complete request because module is busy
+#define VGM_BUSY            -8
+
+#define VGM_TIM_PERIPH      SYSCTL_PERIPH_TIMER0
+#define VGM_TIM_BASE        TIMER0_BASE
+#define VGM_TIM_HALF        TIMER_B
+#define VGM_TIM_ENABLE_PERIPH
 
 /// VGM header version 1.61
 typedef struct
@@ -149,11 +162,11 @@ typedef struct
 
 typedef enum
 {
-    VGM_CLOSE,  ///< No VGM file is opened
-    VGM_STOP,   ///< VGM file is opened, playback is stopped
-    VGM_PLAY,   ///< VGM file is being played
-    VGM_PAUSE,  ///< VGM playback is paused
-    VGM_ERROR   ///< An error occurred while playing the file
+    VGM_CLOSE,      ///< No VGM file is opened
+    VGM_STOP,       ///< VGM file is opened, playback is stopped
+    VGM_PLAY,       ///< VGM file is being played
+    VGM_PAUSE,      ///< VGM playback is paused
+    VGM_ERROR_STOP  ///< An error occurred while playing the file
 } VgmStat;
 
 /// Check header length is correct
@@ -165,14 +178,21 @@ extern "C"
 #endif
 
 /************************************************************************//**
+ * \brief Module initialization. Must be called once before any other
+ * function.
+ ****************************************************************************/
+void VgmInit(void);
+
+/************************************************************************//**
  * \brief Opens a VGM file and parses its header, to get ready to play it.
  *
  * \param[in] fileName Name of the file to open.
  * \return
- * - VGM_OK If file has been opened and parsed correctly.
- * - VGM_FILE_ERR if file couldn't be opened and read correctly.
- * - VGM_HEAD_ERR if VGM header checks failed.
- * - VGM_STREAM_ERR if stream format was not correct.
+ * - VGM_OK File has been opened and parsed correctly.
+ * - VGM_FILE_ERR File couldn't be opened and read correctly.
+ * - VGM_HEAD_ERR VGM header checks failed.
+ * - VGM_STREAM_ERR Stream format is not correct.
+ * - VGM_NOT_SUPPORTED VGM header looks correct but file is not supported.
  ****************************************************************************/
 int VgmOpen(char fileName[]);
 

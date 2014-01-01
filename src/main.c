@@ -31,6 +31,7 @@
 #include "fatfs/ff.h"
 #include "rgb_led.h"
 #include "uart.h"
+#include "vgm.h"
 
 #define HELLO_STR       "Hello World!\r\n"
 #define HELLO_STR_LEN   (sizeof(HELLO_STR) - 1)
@@ -68,7 +69,6 @@ int main(void)
     FATFS fs;
     FIL f;
     FRESULT returned;
-    UINT scratch;
     int i;
 
 	/// Set clock to 66,67 MHz (200 MHz / 3)
@@ -80,7 +80,7 @@ int main(void)
 
     /// Initialize UART0 (used for stdout)
     UartInit(0, 115200);
-    printf("Test start!\r\n");
+    printf("Debug console\r\n");
 
     /// Color cycle the LED. Ends with red color.
     for (i = 7; i > 0; i--)
@@ -89,27 +89,13 @@ int main(void)
     	RgbLedSet(i<<1);
     }
 
-    // TODO: check mount options
+    /// Mount filesystem
     if ((returned = f_mount(&fs, _T("/"), 0)))
     {
         printf("ERROR: couldn't mount volume.\r\n");
         return 1;
     }
 
-    if ((returned = f_open(&f, _T("test.txt"), FA_CREATE_ALWAYS | FA_WRITE)))
-    {
-        printf("ERROR: couldn't open file.\r\n");
-        return 2;
-    }
-
-    if ((returned = f_write(&f, HELLO_STR, HELLO_STR_LEN, &scratch)))
-    {
-        printf("ERROR: couldn't write to file.\r\n");
-        return 3;
-    }
-    printf("%d bytes written.\r\n", scratch);
-
-    // TODO: unmount volume or at least sync filesystem
     f_sync(&f);
    return 0;
 }
